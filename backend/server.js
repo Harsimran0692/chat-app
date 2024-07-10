@@ -1,14 +1,13 @@
 const express = require('express');
 const env = require('dotenv');
 const app = express();
-const bodyParser = require('body-parser');
-// const cors = require('cors');
-env.config();
 const chats = require('./data/chats.js');
+const connectDB = require('./config/db.js');
 
-// app.use(cors());
-// app.use(bodyParser.json());
+env.config();
+// console.log('Mongo URI:', process.env.MONGO_URI);
 
+connectDB();
 
 app.get('/', (req, res) => {
     res.send("Home");
