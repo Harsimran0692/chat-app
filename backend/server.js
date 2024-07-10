@@ -1,32 +1,21 @@
-const express = require('express');
 const env = require('dotenv');
+env.config();
+
+const express = require('express');
 const app = express();
 const chats = require('./data/chats.js');
 const connectDB = require('./config/db.js');
-
-env.config();
-// console.log('Mongo URI:', process.env.MONGO_URI);
+const userRoutes = require('./routes/userRoutes.js');
 
 connectDB();
+
+app.use(express.json()); // to accept json data
 
 app.get('/', (req, res) => {
     res.send("Home");
     res.end();
 });
-app.get('/api/chat', (req, res) => {
-    res.send(chats)
-});
-app.get('/api/chat/:id', (req, res) => {
-    // res.send(req)
-    // console.log(req);
-    const singleData = chats.map((data) => {
-        if (data._id === req.params.id) {
-            return data
-        }
-    })
-    res.send(singleData);
-});
-
+app.use('/api/chat', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
