@@ -1,9 +1,14 @@
 const express = require('express');
 const env = require('dotenv');
 const app = express();
+const bodyParser = require('body-parser');
+// const cors = require('cors');
 env.config();
-
 const chats = require('./data/chats.js');
+
+// app.use(cors());
+// app.use(bodyParser.json());
+
 
 app.get('/', (req, res) => {
     res.send("Home");
