@@ -6,6 +6,7 @@ const app = express();
 const chats = require('./data/chats.js');
 const connectDB = require('./config/db.js');
 const userRoutes = require('./routes/userRoutes.js');
+const { notFound, errorHandler } = require('./middlewares/errorMiddleware.js');
 
 connectDB();
 
@@ -16,8 +17,10 @@ app.get('/', (req, res) => {
     res.end();
 });
 app.use('/api/chat', userRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 
 app.listen(PORT, (err) => {
     if (err) console.error(err);
