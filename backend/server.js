@@ -7,16 +7,18 @@ const chats = require('./data/chats.js');
 const connectDB = require('./config/db.js');
 const userRoutes = require('./routes/userRoutes.js');
 const { notFound, errorHandler } = require('./middlewares/errorMiddleware.js');
+const cors = require('cors');
 
 connectDB();
 
 app.use(express.json()); // to accept json data
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send("Home");
     res.end();
 });
-app.use('/api/chat', userRoutes);
+app.use('/api/user', userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

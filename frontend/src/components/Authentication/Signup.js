@@ -8,63 +8,56 @@ import {
     useToast,
     VStack
 } from '@chakra-ui/react'
-import { useState, axios } from 'react';
-// import { unstable_HistoryRouter } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
 
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
     const toast = useToast();
+    const navigate = useNavigate();
     // const history = unstable_HistoryRouter();
 
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [confirmpassword, setConfirmpassword] = useState();
-    const [password, setPassword] = useState();
-    const [pic, setPic] = useState();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [confirmpassword, setConfirmpassword] = useState('');
+    const [password, setPassword] = useState('');
+    // const [pic, setPic] = useState();
     const [picLoading, setPicLoading] = useState(false);
 
     const submitHandler = async () => {
-        setPicLoading(true);
+        // setPicLoading(true);
+
         if (!name || !email || !password || !confirmpassword) {
             toast({
-                title: "Please Fill all the Feilds",
-                status: "warning",
-                duration: 5000,
+                title: 'Empty Fields.',
+                description: "Please fill all the required fields",
+                status: 'success',
+                duration: 4000,
                 isClosable: true,
-                position: "bottom",
-            });
+            })
             setPicLoading(false);
             return;
         }
         if (password !== confirmpassword) {
             toast({
-                title: "Passwords Do Not Match",
-                status: "warning",
-                duration: 5000,
+                title: 'Check Password & Confirm Password',
+                description: "Password & Confirm Password",
+                status: 'success',
+                duration: 4000,
                 isClosable: true,
-                position: "bottom",
             });
             return;
         }
-        console.log(name, email, password, pic);
         try {
             const config = {
                 headers: {
                     "Content-type": "application/json",
-                },
-            };
-            const { data } = await axios.post(
-                "/api/user",
-                {
-                    name,
-                    email,
-                    password,
-                    pic,
-                },
-                config
-            );
+                }
+            }
+            const { data } = await axios.post('http://localhost:5000/api/user', { name, email, password }, config);
             console.log(data);
             toast({
                 title: "Registration Successful",
@@ -73,65 +66,27 @@ const Signup = () => {
                 isClosable: true,
                 position: "bottom",
             });
-            localStorage.setItem("userInfo", JSON.stringify(data));
+            localStorage.setItem('userData', JSON.stringify(data));
             setPicLoading(false);
-            // history.push("/chats");
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000);
         } catch (error) {
             toast({
                 title: "Error Occured!",
-                description: error.response.data.message,
+                description: error.message,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
                 position: "bottom",
             });
+
             setPicLoading(false);
         }
     };
 
     const postDetails = (pics) => {
-        setPicLoading(true);
-        if (pics === undefined) {
-            toast({
-                title: "Please Select an Image!",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
-            return;
-        }
-        console.log(pics);
-        if (pics.type === "image/jpeg" || pics.type === "image/png") {
-            const data = new FormData();
-            data.append("file", pics);
-            data.append("upload_preset", "chat-app");
-            data.append("cloud_name", "piyushproj");
-            fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
-                method: "post",
-                body: data,
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setPic(data.url.toString());
-                    console.log(data.url.toString());
-                    setPicLoading(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    setPicLoading(false);
-                });
-        } else {
-            toast({
-                title: "Please Select an Image!",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
-            setPicLoading(false);
-            return;
-        }
+
     };
 
     return (
@@ -140,6 +95,8 @@ const Signup = () => {
             <FormControl id="first-name" isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input
+                    type='text'
+                    value={name}
                     placeholder="Enter Your Name"
                     onChange={(e) => setName(e.target.value)}
                 />
@@ -147,7 +104,9 @@ const Signup = () => {
             <FormControl id="email" isRequired>
                 <FormLabel>Email Address</FormLabel>
                 <Input
+                    id="email-input"
                     type="email"
+                    value={email}
                     placeholder="Enter Your Email Address"
                     onChange={(e) => setEmail(e.target.value)}
                 />
@@ -156,7 +115,9 @@ const Signup = () => {
                 <FormLabel>Password</FormLabel>
                 <InputGroup size="md">
                     <Input
+                        id='password-input'
                         type={show ? "text" : "password"}
+                        value={password}
                         placeholder="Enter Password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -171,7 +132,9 @@ const Signup = () => {
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup size="md">
                     <Input
+                        id='confirm-password-input'
                         type={show ? "text" : "password"}
+                        value={confirmpassword}
                         placeholder="Confirm password"
                         onChange={(e) => setConfirmpassword(e.target.value)}
                     />
@@ -196,6 +159,7 @@ const Signup = () => {
                 width="100%"
                 style={{ marginTop: 15 }}
                 onClick={submitHandler}
+                loadingText="Submitting"
                 isLoading={picLoading}
             >
                 Sign Up
