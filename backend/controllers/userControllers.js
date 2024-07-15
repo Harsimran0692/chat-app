@@ -64,7 +64,7 @@ const allUsers = expressAsyncHandler(async (req, res) => {
         ],
     } : {}
     const user = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-    console.log(user);
+    console.log(typeof user);
     res.send(user);
 });
 
