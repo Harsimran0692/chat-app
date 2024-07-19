@@ -49,11 +49,9 @@ const HomePage = () => {
                         <Tab w='50%'>SignUp</Tab>
                     </TabList>
                     <TabPanels>
-                        <ChatProvider>
-                            <TabPanel>
-                                <Login />
-                            </TabPanel>
-                        </ChatProvider>
+                        <TabPanel>
+                            <Login />
+                        </TabPanel>
                         <TabPanel>
                             <Signup />
                         </TabPanel>

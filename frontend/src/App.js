@@ -8,13 +8,10 @@ import { ChatProvider } from './Context/ChatProvider';
 const App = () => {
     return (
         <div className='App'>
-
-            <ChatProvider>
-                <Routes>
-                    <Route path='/' Component={HomePage} />
-                    <Route path='/chats' Component={ChatPage} />
-                </Routes>
-            </ChatProvider>
+            <Routes>
+                <Route path='/' Component={HomePage} />
+                <Route path='/chats' Component={ChatPage} />
+            </Routes>
         </div>
     )
 }

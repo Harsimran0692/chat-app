@@ -27,14 +27,14 @@ const Signup = () => {
     // const [pic, setPic] = useState();
     const [picLoading, setPicLoading] = useState(false);
 
-    const submitHandler = async () => {
+    const SubmitHandler = async () => {
         // setPicLoading(true);
 
         if (!name || !email || !password || !confirmpassword) {
             toast({
                 title: 'Empty Fields.',
                 description: "Please fill all the required fields",
-                status: 'success',
+                status: 'error',
                 duration: 4000,
                 isClosable: true,
             })
@@ -57,7 +57,7 @@ const Signup = () => {
                     "Content-type": "application/json",
                 }
             }
-            const { data } = await axios.post('http://localhost:5000/api/user', { name, email, password }, config);
+            const { data } = await axios.post('/api/user', { name, email, password }, config);
             console.log(data);
             toast({
                 title: "Registration Successful",
@@ -158,7 +158,7 @@ const Signup = () => {
                 colorScheme="blue"
                 width="100%"
                 style={{ marginTop: 15 }}
-                onClick={submitHandler}
+                onClick={SubmitHandler}
                 loadingText="Submitting"
                 isLoading={picLoading}
             >

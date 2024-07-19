@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 
 // --------------------------deployment------------------------------
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5001;
 
 const server = app.listen(PORT, (err) => {
     if (err) console.error(err);

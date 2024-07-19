@@ -19,14 +19,14 @@ const Login = () => {
     const navigate = useNavigate();
 
     const { setUser } = ChatState();
-    const submitHandler = async () => {
+    const SubmitHandler = async () => {
         setLoading(true);
 
         if (!email || !password) {
             toast({
                 title: 'Empty Fields.',
                 description: "Please fill all the required fields",
-                status: 'success',
+                status: 'error',
                 duration: 4000,
                 isClosable: true,
             })
@@ -40,7 +40,8 @@ const Login = () => {
                     "Content-type": "application/json"
                 }
             }
-            const { data } = await axios.post('http://localhost:5000/api/user/login', { email, password }, config);
+            const { data } = await axios.post('/api/user/login', { email, password }, config);
+            // console.log("Data", data);
             toast({
                 title: "Loggedin",
                 description: "Login Successful",
@@ -52,7 +53,7 @@ const Login = () => {
             setUser(data);
             localStorage.setItem("userInfo", JSON.stringify(data));
             setLoading(false);
-            navigate('./chats');
+            navigate("/chats");
         } catch (error) {
             toast({
                 title: "Something went wrong",
@@ -62,7 +63,7 @@ const Login = () => {
                 isClosable: true,
                 position: "bottom",
             });
-            console.error("Something went wrong")
+            console.error(error)
             setLoading(false);
         }
     };
@@ -98,7 +99,7 @@ const Login = () => {
                 colorScheme="blue"
                 width="100%"
                 style={{ marginTop: 15 }}
-                onClick={submitHandler}
+                onClick={SubmitHandler}
                 isLoading={loading}
             >
                 Login
@@ -113,11 +114,9 @@ const Login = () => {
                 }}
             >
                 Get Guest User Credentials
-                <ChatProvider>
 
-                </ChatProvider>
             </Button>
-            {/* <ChatProvider><submitHandler /></ChatProvider> */}
+            {/* <SubmitHandler /> */}
         </VStack>
     );
 };

@@ -2,12 +2,15 @@ const Chat = require('../models/chatModel.js');
 const User = require('../models/chatModel.js');
 const expressAsyncHandler = require('express-async-handler');
 
+
 //@description     Create or fetch One to One Chat
 //@route           POST /api/chat/
 //@access          Protected
 
 const accessChat = expressAsyncHandler(async (req, res) => {
     const { userId } = req.body;
+    // console.log("userId", userId);
+    // console.log("req.user._id", req.user._id);
 
     if (!userId) {
         console.log("UserId param not sent with request");
@@ -80,7 +83,7 @@ const fetchChats = expressAsyncHandler(async (req, res) => {
 //@access          Protected
 const createGroupChat = expressAsyncHandler(async (req, res) => {
     if (!req.body.users || !req.body.name) {
-        return res.status(400).send({ message: "Please Fill all the feilds" });
+        return res.status(400).send({ message: "Please fill all the fields" });
     }
 
     var users = JSON.parse(req.body.users);

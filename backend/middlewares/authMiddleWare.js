@@ -3,8 +3,6 @@ const User = require('../models/userModel.js');
 const asyncHandler = require('express-async-handler');
 
 const protect = asyncHandler(async (req, res, next) => {
-    console.log(req.headers);
-    console.log(req.authorization);
     let token;
 
     if (
