@@ -1,7 +1,7 @@
 
 # Let's Chat
 
-Talk-a-tive is a Full Stack Chatting App.
+Let's Chat is a Full Stack Chatting App.
 Uses Socket.io for real time communication and stores user details in encrypted format in Mongo DB Database.
 ## Tech Stack
 
@@ -11,11 +11,6 @@ Uses Socket.io for real time communication and stores user details in encrypted 
 
 **Database:** Mongo DB
   
-## Demo
-
-[https://talk-a-tive.herokuapp.com/](https://talk-a-tive-7fgq.onrender.com)
-
-![](https://github.com/piyush-eon/mern-chat-app/blob/master/screenshots/group%20%2B%20notif.PNG)
 ## Run Locally
 
 Clone the project
