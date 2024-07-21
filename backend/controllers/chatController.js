@@ -9,11 +9,11 @@ const expressAsyncHandler = require('express-async-handler');
 
 const accessChat = expressAsyncHandler(async (req, res) => {
     const { userId } = req.body;
-    // console.log("userId", userId);
-    // console.log("req.user._id", req.user._id);
+    // // console.log("userId", userId);
+    // // console.log("req.user._id", req.user._id);
 
     if (!userId) {
-        console.log("UserId param not sent with request");
+        // console.log("UserId param not sent with request");
         return res.sendStatus(400);
     }
 

@@ -5,7 +5,7 @@ import { ChatState } from "../../Context/ChatProvider";
 const UserListItem = ({ user, handleFunction }) => {
     // const { user } = ChatState();
 
-    console.log("UserListItem: ", user);
+    // console.log("UserListItem: ", user);
 
     return (
         <Box

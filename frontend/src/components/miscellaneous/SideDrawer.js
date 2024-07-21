@@ -78,12 +78,12 @@ function SideDrawer() {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            console.log("sidedrawer token: ", user.token);
+            // console.log("sidedrawer token: ", user.token);
             const { data } = await axios.get(`/api/user?search=${search}`, config);
 
             setLoading(false);
             setSearchResult(data);
-            // console.log("searchResult: ", searchResult);
+            // // console.log("searchResult: ", searchResult);
         } catch (error) {
             toast({
                 title: "Error Occured!",
@@ -97,8 +97,8 @@ function SideDrawer() {
     };
 
     const accessChat = async (userId) => {
-        console.log("accessChat userId", userId);
-        console.log("accessChat token", user.token);
+        // console.log("accessChat userId", userId);
+        // console.log("accessChat token", user.token);
 
         try {
             setLoadingChat(true);
@@ -110,7 +110,7 @@ function SideDrawer() {
             };
             const { data } = await axios.post(`/api/chat`, { userId }, config);
 
-            console.log(data);
+            // console.log(data);
 
             if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
             setSelectedChat(data);

@@ -28,7 +28,7 @@ userModel.methods.matchPassword = async function (enteredPassword) {
 
 // here pre means before saving
 userModel.pre('save', async function (next) {
-    console.log(this);
+    // console.log(this);
     if (!this.isModified) {
         next();
     }

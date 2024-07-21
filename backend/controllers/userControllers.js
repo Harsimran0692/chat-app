@@ -41,7 +41,7 @@ const authUser = expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
-        console.log("yesssss");
+        // console.log("yesssss");
         res.status(201).json({
             _id: user._id,
             name: user.name,
@@ -65,7 +65,7 @@ const allUsers = expressAsyncHandler(async (req, res) => {
         ],
     } : {}
     const user = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-    console.log(typeof user);
+    // console.log(typeof user);
     res.send(user);
 });
 
